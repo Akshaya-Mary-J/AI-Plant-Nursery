@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% block title %}Home | Akshaya AI Plant Shop{% endblock %}
+{% block content %}
+<section class="hero-section">
+    <div class="container hero-grid">
+        <div class="hero-copy">
+            <span class="eyebrow">AI-powered smart nursery project</span>
+            <h1>Buy healthy plants with smart care guidance.</h1>
+            <p>Explore indoor plants, flowering plants, herbs, succulents and premium bonsai. Get instant AI help for watering, sunlight, soil, fertilizer and plant care.</p>
+            <div class="hero-actions">
+                <a class="btn primary" href="{{ url_for('plants') }}">Shop Plants</a>
+                <a class="btn secondary" href="{{ url_for('disease') }}">Check Plant Disease</a>
+            </div>
+            <div class="hero-stats">
+                <div><strong>24+</strong><span>Plants</span></div>
+                <div><strong>AI</strong><span>Chatbot</span></div>
+                <div><strong>Voice</strong><span>Assistant</span></div>
+            </div>
+        </div>
+        <div class="hero-card">
+            <div class="plant-orbit">🌿</div>
+            <div class="hero-plant">🪴</div>
+            <h3>Smart Plant Recommendation</h3>
+            <p>Beginner friendly picks: Money Plant, Snake Plant, ZZ Plant, Aloe Vera and Lucky Bamboo.</p>
+        </div>
+    </div>
+</section>
+
+<section class="container section">
+    <div class="section-title">
+        <span class="eyebrow">Categories</span>
+        <h2>Choose by plant type</h2>
+    </div>
+    <div class="category-grid">
+        {% for category in categories %}
+        <a class="category-card" href="{{ url_for('plants', category=category) }}">
+            <span>{{ '🌸' if category == 'Flowering' else '🌵' if category == 'Succulent' else '🌿' }}</span>
+            <strong>{{ category }}</strong>
+        </a>
+        {% endfor %}
+    </div>
+</section>
+
+<section class="container section">
+    <div class="section-title row-between">
+        <div>
+            <span class="eyebrow">Featured Plants</span>
+            <h2>Popular plants to buy</h2>
+        </div>
+        <a class="text-link" href="{{ url_for('plants') }}">View all plants →</a>
+    </div>
+    <div class="product-grid">
+        {% for p in plants %}
+        {% include "partials/plant_card.html" %}
+        {% endfor %}
+    </div>
+</section>
+
+<section class="container section feature-band">
+    <div>
+        <h2>Project Features Included</h2>
+        <p>This professional version includes working cart, checkout, admin plant management, AI chatbot, voice assistant, search, filters, disease check demo and payment-ready Razorpay setup.</p>
+    </div>
+    <a class="btn primary" href="{{ url_for('care_tips') }}">Read Care Tips</a>
+</section>
+{% endblock %}

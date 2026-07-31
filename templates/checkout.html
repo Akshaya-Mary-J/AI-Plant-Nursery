@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block title %}Checkout | Akshaya AI Plant Shop{% endblock %}
+{% block content %}
+<section class="page-hero small">
+    <div class="container">
+        <span class="eyebrow">Secure Checkout</span>
+        <h1>Complete your order</h1>
+    </div>
+</section>
+<section class="container section checkout-grid">
+    <form class="checkout-form card-panel" id="checkoutForm">
+        <h2>Delivery Details</h2>
+        <div class="two-col">
+            <label>Full Name<input name="customer_name" required placeholder="Enter your name"></label>
+            <label>Phone<input name="phone" required placeholder="9876543210"></label>
+        </div>
+        <label>Email<input type="email" name="email" required placeholder="name@example.com"></label>
+        <label>Address<textarea name="address" required placeholder="House no, street, area"></textarea></label>
+        <div class="two-col">
+            <label>City<input name="city" required></label>
+            <label>Pincode<input name="pincode" required></label>
+        </div>
+        <h3>Payment Method</h3>
+        <div class="payment-options">
+            <label><input type="radio" name="payment_method" value="cod" checked> Cash on Delivery</label>
+            <label><input type="radio" name="payment_method" value="razorpay"> Online Payment using Razorpay</label>
+        </div>
+        <button class="btn primary full" type="submit">Place Order</button>
+        <p class="muted">Razorpay works after adding your real test/live keys. Cash on Delivery works immediately for project demo.</p>
+    </form>
+    <aside class="card-panel">
+        <h2>Cart Preview</h2>
+        <div id="checkoutItems" class="checkout-items"></div>
+        <div class="summary-row"><span>Subtotal</span><strong id="checkoutSubtotal">₹0</strong></div>
+        <div class="summary-row"><span>Delivery</span><strong id="checkoutDelivery">₹0</strong></div>
+        <div class="summary-row total"><span>Total</span><strong id="checkoutTotal">₹0</strong></div>
+        <div id="orderResult" class="order-result"></div>
+    </aside>
+</section>
+{% endblock %}
+{% block scripts %}
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script src="{{ url_for('static', filename='js/payment.js') }}"></script>
+<script>window.RAZORPAY_KEY_ID = "{{ razorpay_key_id }}"; initCheckoutPage();</script>
+{% endblock %}

@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}Plant Form | Akshaya AI Plant Shop{% endblock %}
+{% block content %}
+<section class="container section narrow wide-form">
+    <form class="card-panel" method="post">
+        <h1>{{ 'Edit Plant' if plant.id else 'Add New Plant' }}</h1>
+        <div class="two-col"><label>Name<input name="name" value="{{ plant.name or '' }}" required></label><label>Emoji<input name="image_emoji" value="{{ plant.image_emoji or '🌿' }}"></label></div>
+        <div class="two-col"><label>Category<input name="category" value="{{ plant.category or 'Indoor' }}" required></label><label>Price<input type="number" name="price" value="{{ plant.price or '' }}" required></label></div>
+        <div class="two-col"><label>Stock<input type="number" name="stock" value="{{ plant.stock or 10 }}"></label><label>Difficulty<input name="difficulty" value="{{ plant.difficulty or 'Easy' }}"></label></div>
+        <label>Size<input name="size" value="{{ plant.size or 'Medium' }}"></label>
+        <label>Sunlight<input name="sunlight" value="{{ plant.sunlight or '' }}" required></label>
+        <label>Water<input name="water" value="{{ plant.water or '' }}" required></label>
+        <label>Soil<input name="soil" value="{{ plant.soil or '' }}" required></label>
+        <label>Fertilizer<input name="fertilizer" value="{{ plant.fertilizer or '' }}" required></label>
+        <label>Benefits<textarea name="benefits" required>{{ plant.benefits or '' }}</textarea></label>
+        <label>Description<textarea name="description" required>{{ plant.description or '' }}</textarea></label>
+        <button class="btn primary" type="submit">Save Plant</button>
+        <a class="btn ghost" href="{{ url_for('admin') }}">Cancel</a>
+    </form>
+</section>
+{% endblock %}

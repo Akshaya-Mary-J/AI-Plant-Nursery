@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block title %}Shop Plants | Akshaya AI Plant Shop{% endblock %}
+{% block content %}
+<section class="page-hero small">
+    <div class="container">
+        <span class="eyebrow">Plant Shop</span>
+        <h1>Explore plants to buy</h1>
+        <p>Search plants by name, category, benefit or budget. Add items to cart and checkout easily.</p>
+    </div>
+</section>
+
+<section class="container section">
+    <form class="filter-bar" method="get">
+        <input type="search" name="q" placeholder="Search money plant, rose, indoor..." value="{{ query }}">
+        <select name="category">
+            <option value="">All Categories</option>
+            {% for category in categories %}
+            <option value="{{ category }}" {% if selected_category == category %}selected{% endif %}>{{ category }}</option>
+            {% endfor %}
+        </select>
+        <select name="sort">
+            <option value="name" {% if sort == 'name' %}selected{% endif %}>Sort by Name</option>
+            <option value="low" {% if sort == 'low' %}selected{% endif %}>Price Low to High</option>
+            <option value="high" {% if sort == 'high' %}selected{% endif %}>Price High to Low</option>
+        </select>
+        <button class="btn primary" type="submit">Apply</button>
+    </form>
+
+    {% if plants %}
+    <div class="product-grid">
+        {% for p in plants %}
+        {% include "partials/plant_card.html" %}
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="empty-state">
+        <h3>No plants found</h3>
+        <p>Try another keyword or category.</p>
+        <a class="btn primary" href="{{ url_for('plants') }}">Reset Search</a>
+    </div>
+    {% endif %}
+</section>
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block title %}Admin Dashboard | Akshaya AI Plant Shop{% endblock %}
+{% block content %}
+<section class="page-hero small"><div class="container row-between"><div><span class="eyebrow">Admin</span><h1>Dashboard</h1></div><a class="btn secondary" href="{{ url_for('admin_logout') }}">Logout</a></div></section>
+<section class="container section">
+    <div class="admin-cards">
+        <div class="card-panel"><strong>{{ plants|length }}</strong><span>Total Plants</span></div>
+        <div class="card-panel"><strong>{{ orders|length }}</strong><span>Recent Orders</span></div>
+        <div class="card-panel"><strong>{{ requests|length }}</strong><span>Plant Requests</span></div>
+    </div>
+    <div class="row-between section-title"><h2>Plant Inventory</h2><a class="btn primary" href="{{ url_for('admin_plant_new') }}">Add New Plant</a></div>
+    <div class="table-wrap">
+        <table>
+            <thead><tr><th>Name</th><th>Category</th><th>Price</th><th>Stock</th><th>Actions</th></tr></thead>
+            <tbody>
+                {% for p in plants %}
+                <tr><td>{{ p.image_emoji }} {{ p.name }}</td><td>{{ p.category }}</td><td>₹{{ p.price }}</td><td>{{ p.stock }}</td><td><a href="{{ url_for('admin_plant_edit', id=p.id) }}">Edit</a><form method="post" action="{{ url_for('admin_plant_delete', id=p.id) }}" class="inline" onsubmit="return confirm('Delete this plant?')"><button>Delete</button></form></td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div class="dashboard-grid">
+        <div class="card-panel">
+            <h2>Recent Orders</h2>
+            {% for o in orders %}<p><strong>{{ o.order_no }}</strong> - {{ o.customer_name }} - ₹{{ o.total }} - {{ o.payment_status }}</p>{% else %}<p>No orders yet.</p>{% endfor %}
+        </div>
+        <div class="card-panel">
+            <h2>Plant Requests</h2>
+            {% for r in requests %}<p><strong>{{ r.plant_name }}</strong> requested by {{ r.name }} - {{ r.phone }}</p>{% else %}<p>No plant requests yet.</p>{% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}

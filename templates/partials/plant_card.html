@@ -1,0 +1,22 @@
+<article class="product-card">
+    <a class="product-image" href="{{ url_for('plant_details', id=p.id) }}">
+        <span>{{ p.image_emoji }}</span>
+        <small>{{ p.category }}</small>
+    </a>
+    <div class="product-content">
+        <div class="row-between gap">
+            <h3>{{ p.name }}</h3>
+            <span class="price">₹{{ p.price }}</span>
+        </div>
+        <p>{{ p.benefits }}</p>
+        <div class="chips">
+            <span>{{ p.difficulty }}</span>
+            <span>{{ p.size }}</span>
+            <span>{{ p.stock }} left</span>
+        </div>
+        <div class="card-actions">
+            <a class="btn ghost" href="{{ url_for('plant_details', id=p.id) }}">Details</a>
+            <button class="btn primary add-cart-btn" data-id="{{ p.id }}" data-name="{{ p.name }}" data-price="{{ p.price }}" data-emoji="{{ p.image_emoji }}" data-stock="{{ p.stock }}">Add to Cart</button>
+        </div>
+    </div>
+</article>

@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}Contact | Akshaya AI Plant Shop{% endblock %}
+{% block content %}
+<section class="page-hero small"><div class="container"><span class="eyebrow">Contact Us</span><h1>Get in touch</h1><p>Contact our demo nursery team for orders, delivery and care support.</p></div></section>
+<section class="container section checkout-grid">
+    <form class="card-panel" method="post">
+        <h2>Send Message</h2>
+        <label>Name<input name="name" required></label>
+        <label>Email<input type="email" name="email" required></label>
+        <label>Message<textarea name="message" required></textarea></label>
+        <button class="btn primary" type="submit">Send Message</button>
+    </form>
+    <div class="card-panel contact-card">
+        <h2>Nursery Details</h2>
+        <p><strong>Email:</strong> support@akshayaplants.demo</p>
+        <p><strong>Phone:</strong> +91 98765 43210</p>
+        <p><strong>Address:</strong> Green Garden Road, Bengaluru, India</p>
+        <p><strong>Timing:</strong> Monday to Saturday, 9 AM to 7 PM</p>
+    </div>
+</section>
+{% endblock %}

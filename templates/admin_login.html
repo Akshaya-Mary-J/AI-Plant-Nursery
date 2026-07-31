@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}Admin Login | Akshaya AI Plant Shop{% endblock %}
+{% block content %}
+<section class="container section narrow">
+    <form class="card-panel" method="post">
+        <h1>Admin Login</h1>
+        <p class="muted">Default demo login: admin / admin123. Change this using environment variables before submission or hosting.</p>
+        <label>Username<input name="username" required></label>
+        <label>Password<input type="password" name="password" required></label>
+        <button class="btn primary" type="submit">Login</button>
+    </form>
+</section>
+{% endblock %}

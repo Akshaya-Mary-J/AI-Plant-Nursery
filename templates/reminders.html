@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block title %}Plant Reminders | Akshaya AI Plant Shop{% endblock %}
+{% block content %}
+<section class="page-hero small"><div class="container"><span class="eyebrow">Reminders</span><h1>Watering reminder guide</h1></div></section>
+<section class="container section narrow">
+    <div class="card-panel">
+        <h2>How to use reminders</h2>
+        <p>For this final year project, reminders can be explained as a future enhancement. You can store plant name and watering date in localStorage or database and show alerts when the user opens the site.</p>
+        <label>Plant Name<input id="reminderPlant" placeholder="Money Plant"></label>
+        <label>Reminder Date<input id="reminderDate" type="date"></label>
+        <button class="btn primary" onclick="saveReminder()">Save Reminder</button>
+        <div id="reminderList"></div>
+    </div>
+</section>
+{% endblock %}
+{% block scripts %}<script src="{{ url_for('static', filename='js/reminders.js') }}"></script>{% endblock %}

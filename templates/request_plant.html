@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %}Request Plant | Akshaya AI Plant Shop{% endblock %}
+{% block content %}
+<section class="page-hero small"><div class="container"><span class="eyebrow">Custom Request</span><h1>Request a plant not available in shop</h1></div></section>
+<section class="container section narrow">
+    <form class="card-panel" method="post">
+        <label>Your Name<input name="name" required></label>
+        <label>Phone Number<input name="phone" required></label>
+        <label>Plant Name Needed<input name="plant_name" required placeholder="Example: Jasmine, Neem, Orchid"></label>
+        <label>Message<textarea name="message" placeholder="Any pot size, quantity or delivery note"></textarea></label>
+        <button class="btn primary" type="submit">Submit Request</button>
+    </form>
+</section>
+{% endblock %}

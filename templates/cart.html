@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}Cart | Akshaya AI Plant Shop{% endblock %}
+{% block content %}
+<section class="page-hero small">
+    <div class="container">
+        <span class="eyebrow">Shopping Cart</span>
+        <h1>Your selected plants</h1>
+    </div>
+</section>
+<section class="container section cart-layout">
+    <div class="cart-items" id="cartItems"></div>
+    <aside class="cart-summary card-panel">
+        <h2>Order Summary</h2>
+        <div class="summary-row"><span>Subtotal</span><strong id="summarySubtotal">₹0</strong></div>
+        <div class="summary-row"><span>Delivery</span><strong id="summaryDelivery">₹0</strong></div>
+        <div class="summary-row total"><span>Total</span><strong id="summaryTotal">₹0</strong></div>
+        <p class="muted">Free delivery on orders above ₹999.</p>
+        <a class="btn primary full" href="{{ url_for('checkout') }}">Proceed to Checkout</a>
+        <button class="btn ghost full" id="clearCartBtn">Clear Cart</button>
+    </aside>
+</section>
+{% endblock %}
+{% block scripts %}
+<script>renderCartPage();</script>
+{% endblock %}

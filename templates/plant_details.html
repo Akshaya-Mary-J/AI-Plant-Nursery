@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block title %}{{ plant.name }} | Akshaya AI Plant Shop{% endblock %}
+{% block content %}
+<section class="container section details-grid">
+    <div class="details-visual">
+        <span>{{ plant.image_emoji }}</span>
+        <small>{{ plant.category }}</small>
+    </div>
+    <div class="details-copy">
+        <span class="eyebrow">{{ plant.category }} Plant</span>
+        <h1>{{ plant.name }}</h1>
+        <p class="lead">{{ plant.description }}</p>
+        <div class="price-line">₹{{ plant.price }} <span>{{ plant.stock }} plants in stock</span></div>
+        <div class="care-grid">
+            <div><strong>Sunlight</strong><p>{{ plant.sunlight }}</p></div>
+            <div><strong>Water</strong><p>{{ plant.water }}</p></div>
+            <div><strong>Soil</strong><p>{{ plant.soil }}</p></div>
+            <div><strong>Fertilizer</strong><p>{{ plant.fertilizer }}</p></div>
+        </div>
+        <div class="details-actions">
+            <button class="btn primary add-cart-btn" data-id="{{ plant.id }}" data-name="{{ plant.name }}" data-price="{{ plant.price }}" data-emoji="{{ plant.image_emoji }}" data-stock="{{ plant.stock }}">Add to Cart</button>
+            <a class="btn secondary" href="{{ url_for('plants') }}">Continue Shopping</a>
+        </div>
+    </div>
+</section>
+
+{% if related %}
+<section class="container section">
+    <div class="section-title"><h2>Related Plants</h2></div>
+    <div class="product-grid">
+        {% for p in related %}
+        {% include "partials/plant_card.html" %}
+        {% endfor %}
+    </div>
+</section>
+{% endif %}
+{% endblock %}

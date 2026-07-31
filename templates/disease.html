@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+{% block title %}Disease Check | Akshaya AI Plant Shop{% endblock %}
+{% block content %}
+<section class="page-hero small">
+    <div class="container">
+        <span class="eyebrow">AI Disease Check</span>
+        <h1>Upload a leaf image for instant plant health suggestion</h1>
+        <p>The feature now checks the uploaded image visually. If you later train the CNN model, the same page will automatically use the trained model for stronger predictions.</p>
+    </div>
+</section>
+
+<section class="container section narrow">
+    <form class="card-panel upload-form" id="diseaseForm" enctype="multipart/form-data">
+        <label>Upload Plant Leaf Image
+            <input type="file" name="image" id="leafImage" accept="image/jpeg,image/png,image/webp" required>
+        </label>
+        <div class="image-preview" id="imagePreview">
+            <span>🌿</span>
+            <p>Preview will appear here</p>
+        </div>
+        <button class="btn primary full" id="checkBtn" type="submit">Check Plant Health</button>
+        <div id="diseaseResult" class="order-result"></div>
+        <p class="muted small-note">Best result: upload one clear leaf photo with good lighting and plain background.</p>
+    </form>
+
+    <div class="card-panel train-note">
+        <h2>How to make this fully AI trained?</h2>
+        <p>Use the included file <strong>TRAIN_DISEASE_MODEL.md</strong>. Keep your dataset in class folders, train with <strong>ai/train_model.py</strong>, and the website will use the saved model from the <strong>models</strong> folder.</p>
+    </div>
+</section>
+{% endblock %}
+{% block scripts %}
+<script>
+const leafInput = document.getElementById('leafImage');
+const preview = document.getElementById('imagePreview');
+const form = document.getElementById('diseaseForm');
+const result = document.getElementById('diseaseResult');
+const checkBtn = document.getElementById('checkBtn');
+
+leafInput.addEventListener('change', function(){
+    const file = this.files[0];
+    if(!file){
+        preview.innerHTML = '<span>🌿</span><p>Preview will appear here</p>';
+        return;
+    }
+    if(!file.type.startsWith('image/')){
+        result.innerHTML = 'Please upload only an image file.';
+        this.value = '';
+        return;
+    }
+    const reader = new FileReader();
+    reader.onload = function(e){
+        preview.innerHTML = `<img src="${e.target.result}" alt="Uploaded leaf preview">`;
+    };
+    reader.readAsDataURL(file);
+});
+
+form.addEventListener('submit', async function(e){
+    e.preventDefault();
+    result.innerHTML = 'Checking image, please wait...';
+    checkBtn.disabled = true;
+    checkBtn.textContent = 'Checking...';
+
+    try{
+        const formData = new FormData(this);
+        const res = await fetch('/detect', {method:'POST', body: formData});
+        const contentType = res.headers.get('content-type') || '';
+        if(!contentType.includes('application/json')){
+            throw new Error('Server returned non-JSON response. Check Flask console.');
+        }
+        const data = await res.json();
+        if(data.success){
+            result.innerHTML = `
+                <strong>${data.disease}</strong>
+                <p>${data.advice}</p>
+                <small>Confidence: ${data.confidence} | Mode: ${data.mode || 'Image analysis demo'}</small>
+            `;
+            if(typeof speakText === 'function') speakText(`${data.disease}. ${data.advice}`);
+        } else {
+            result.innerHTML = data.message || 'Could not process image. Try a clearer photo.';
+        }
+    }catch(err){
+        result.innerHTML = 'Disease check failed. Please make sure Flask is running and upload a clear JPG, PNG, or WEBP leaf photo.';
+        console.error(err);
+    }finally{
+        checkBtn.disabled = false;
+        checkBtn.textContent = 'Check Plant Health';
+    }
+});
+</script>
+{% endblock %}
